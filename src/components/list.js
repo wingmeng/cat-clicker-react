@@ -1,14 +1,13 @@
-import React from 'react';
+import React from 'react'
 
+// 猫的列表
 function List(props) {
-  let { className, items, activeItem, onItemClick } = props;
-
   return (
-    <ul className={className}>
-      {items && items.map((item, idx) => (
+    <ul className="list">
+      {props.items && props.items.map((item, idx) => (
         <li key={idx}
-          className={idx === activeItem ? 'active' : ''}
-          onClick={() => onItemClick && onItemClick(idx)}
+          className={props.activeIdx === idx ? 'active' : ''}
+          onClick={() => props.onItemClick(idx)}
         >{item.name}</li>
       ))}
     </ul>

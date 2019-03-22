@@ -1,10 +1,4 @@
-.cat-list {float: left; margin-right: 30px;}
-.cat-list > li {padding: 5px 0; cursor: pointer;}
-.cat-detail {overflow: hidden;}
-.cat-detail > img {max-width: 400px; max-height: 280px;}
-.cat-clicks {margin-left: 30px;}
-.active {color: #06c;}
+img {opacity: 0;}
 
-.form {position: absolute; display: none; transform: translate(50%, -50px);}
-.form label {display: inline-block; width: 5em; margin-right: 5px; text-align: right;}
-.btn-group {padding-left: calc(5em + 5px);}
+.list > .active {font-weight: 700;}
+.cat-clicks {margin-left: 30px;}

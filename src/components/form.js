@@ -1,91 +1,101 @@
-import React from 'react';
+import React from 'react'
 
 class Form extends React.Component {
+  // 内部的状态，对主业务逻辑无影响
   state = {
     isFormShow: false,
-    fields: this.props.data
+    fields: this.props.fields
   }
 
+  // 生命周期：接收到新 props
   componentWillReceiveProps(nextProps) {
-    if (nextProps.data !== this.state.fields) {
-      this.setState({fields: nextProps.data});
+    if (nextProps.fields !== this.state.fields) {
+      this.setState({fields: nextProps.fields})
     }
   }
 
-  update(el, tag) {
+  // 切换表单可见
+  toggleForm() {
+    this.resetForm()
+    this.setState(state => (
+      {isFormShow: !state.isFormShow}
+    ))
+  }
+
+  // 表单项 value 变化
+  onFieldChange(el) {
     let value = el.value;
+    let name = el.name;
 
-    this.setState((state) => {
+    if (name === 'clicks') {
+      value = parseInt(value, 10)
+    }
+
+    this.setState(state => {
       let temp = {};
-      let oldFields = state.fields;
 
-      for (let key in oldFields) {
-        temp[key] = tag === key ? value : oldFields[key]
+      for (let key in state.fields) {
+        temp[key] = key === name ? value : state.fields[key]
       }
 
-      return {fields: temp}
+      return { fields: temp }
     })
   }
 
-  toggleForm(wantTo) {
-    this.setState((state) => {
-      switch(wantTo) {
-        case 'show':
-          return {isFormShow: true}
-        case 'hide':
-          return {isFormShow: false}
-        default:
-          return {isFormShow: !state.isFormShow}
-      }
-    })
+  // 还原表单赋值
+  resetForm() {
+    this.setState({fields: this.props.fields})
   }
 
+  // 取消
   onCancel() {
-    this.setState({fields: this.props.data});
-    this.toggleForm('hide');
+    this.resetForm()
+    this.setState({isFormShow: false})
   }
 
+  // 保存
   onSave() {
-    const handle = this.props.onSave;
-    handle && handle(this.state.fields);
+    // 传递表单值（组件 state.fields 的值）
+    this.props.onSaveForm(this.state.fields)
   }
 
   render() {
-    let { isFormShow, fields } = this.state;
+    let { name, clicks, imgUrl } = this.state.fields;
 
     return (
       <div>
         <p>
-          <button className="btn-admin"
-            onClick={() => this.toggleForm()}
-          >Admin</button>
+          <button onClick={() => this.toggleForm()}>Admin</button>
         </p>
-        <div className="form" style={{display: isFormShow ? 'block' : '' }}>
+        <div style={
+            {display: this.state.isFormShow ? 'block' : 'none'}
+          }>
           <p>
-            <label>Name: </label>
-            <input type="text" value={fields.name}
-              onChange={(event) => this.update(event.target, 'name')}
+            {/* 受控表单 */}
+            Name:
+            <input type="text" name="name"
+              value={name}
+              // 不加 onChange 的话，文本框是只读的
+              onChange={e => this.onFieldChange(e.target)}
             />
           </p>
           <p>
-            <label>ImgURL: </label>
-            <input type="text" value={fields.imgUrl}
-              onChange={(event) => this.update(event.target, 'imgUrl')}
+            Photo Url:
+            <input type="text" name="imgUrl"
+              value={`images/${imgUrl}`}
+              onChange={(e) => this.onFieldChange(e.target)}
             />
           </p>
           <p>
-            <label>Clicks: </label>
-            <input type="text" value={fields.clicks}
-              onChange={(event) => this.update(event.target, 'clicks')}
+            Clicks:
+            <input type="text" name="clicks"
+              value={clicks}
+              onChange={(e) => this.onFieldChange(e.target)}
             />
           </p>
-          <p className="btn-group">
-            <button className="btn-cancel"
-              onClick={() => this.onCancel()}
-            >Cancel</button>{' '}
-            <button className="btn-save"
-              onClick={() => this.onSave()}
-            >Save</button>
+          <p>
+            <button onClick={() => this.onCancel()}>取消</button>
+            <button onClick={() => this.onSave()}>保存</button>
           </p>
         </div>
       </div>
