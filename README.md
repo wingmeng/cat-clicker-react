@@ -1,68 +1,20 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# cat-clicker-react
 
-## Available Scripts
+> MVVM 架构模式简单示例（React）
 
-In the project directory, you can run:
+----
 
-### `npm start`
+[演示地址](https://wingmeng.github.io/cat-clicker-react/build/)
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 一、MVVM 的本质及原理
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+MVVM 本质上是 M-V-C-VM，它是在 MVC 的基础上增加了一层 VM，C 被弱化了，被并入到 M 的概念中。
+VM 用于分离 V 和 M，避免由于直接操作 V 层的 DOM 而带来逻辑上的繁琐和效率上的低下，在实际开发中只需关注 VM 和 M 层之间的通信，因为 V 和 VM 层之间的映射和通信都是由框架自动完成的。
+MVVM 使开发更高效，结构更清晰，增加了代码的复用性。
 
-### `npm test`
+## 二、MVVM 四层结构
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+1. **Model：** 模型层，定义数据结构。
+2. **Controller：** 控制层，实现业务逻辑，即数据的增删改查。在 MVVM 模式中一般把 C 层算在 M 层中。
+3. **ViewModel：** 视图模型层，是视图 View 的模型，映射和显示逻辑（非业务逻辑），另外绑定器也在此层。
+4. **View：** 视图层，将 ViewModel 通过特定的 GUI 展示出来，并在 GUI 控件上绑定视图交互事件，该层一般由 MVVM 框架自动生成在浏览器中。
