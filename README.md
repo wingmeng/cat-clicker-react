@@ -4,7 +4,7 @@
 
 ----
 
-[演示地址](https://wingmeng.github.io/cat-clicker-react/build/)
+[演示地址](https://wingmeng.github.io/cat-clicker-react/build/index.html)
 
 ## 一、MVVM 的本质及原理
 
