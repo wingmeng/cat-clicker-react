@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 // 猫的列表
 function List(props) {
@@ -12,6 +13,12 @@ function List(props) {
       ))}
     </ul>
   )
+}
+
+List.propTypes = {
+  items: PropTypes.array,
+  activeIdx: PropTypes.number,
+  onItemClick: PropTypes.func
 }
 
 export default List;

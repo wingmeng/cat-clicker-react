@@ -86,6 +86,9 @@ class App extends React.Component {
 
         {/* 猫的详情 */}
         <CatView
+          // 将顶级 state 传递下去，孙组件会用到
+          {...this.state}
+
           cat={this.getCurCat()}
           onCatClick={() => this.updateClicks()}
         />

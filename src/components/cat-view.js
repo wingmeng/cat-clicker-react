@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import OutputInfo from './output-info'
 
 function CatView(props) {
   let { name, clicks, imgUrl } = props.cat;
@@ -7,7 +9,7 @@ function CatView(props) {
     <div className="cat-view">
       <p>
         {/* 猫的名称和点击数 */}
-        <strong>{name}</strong>
+        <strong>{name}</strong>{' '}
         <span className="cat-clicks">{clicks}</span> clicks
       </p>
 
@@ -15,8 +17,27 @@ function CatView(props) {
       <img src={`images/${imgUrl}`} alt={name}
         onClick={() => props.onCatClick()}
       />
+
+      {/* 从父级获取需要的参数 */}
+      <OutputInfo
+        cats={props.cats}
+        index={props.catIndex}
+        clicks={props.cat.clicks}
+      />
     </div>
   )
+}
+
+CatView.propTypes = {
+  cat: PropTypes.shape({
+    name: PropTypes.string,
+    clicks: PropTypes.number,
+    imgUrl: PropTypes.string
+  }),
+  onCatClick: PropTypes.func,
+
+  cats: PropTypes.array,
+  catIndex: PropTypes.number
 }
 
 export default CatView;

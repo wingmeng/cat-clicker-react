@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class Form extends React.Component {
   // 内部的状态，对主业务逻辑无影响
@@ -65,14 +66,17 @@ class Form extends React.Component {
     return (
       <div>
         <p>
-          <button onClick={() => this.toggleForm()}>Admin</button>
+          <button
+            className="btn-admin"
+            onClick={() => this.toggleForm()}
+          >Admin</button>
         </p>
-        <div style={
+        <div className="form" style={
             {display: this.state.isFormShow ? 'block' : 'none'}
           }>
           <p>
             {/* 受控表单 */}
-            Name:
+            <label>Name:</label>
             <input type="text" name="name"
               value={name}
               // 不加 onChange 的话，文本框是只读的
@@ -80,27 +84,36 @@ class Form extends React.Component {
             />
           </p>
           <p>
-            Photo Url:
+            <label>ImgURL:</label>
             <input type="text" name="imgUrl"
               value={`images/${imgUrl}`}
               onChange={(e) => this.onFieldChange(e.target)}
             />
           </p>
           <p>
-            Clicks:
+            <label>Clicks:</label>
             <input type="text" name="clicks"
               value={clicks}
               onChange={(e) => this.onFieldChange(e.target)}
             />
           </p>
-          <p>
-            <button onClick={() => this.onCancel()}>取消</button>
-            <button onClick={() => this.onSave()}>保存</button>
+          <p className="btn-group">
+            <button onClick={() => this.onCancel()}>Cancel</button>{' '}
+            <button onClick={() => this.onSave()}>Save</button>
           </p>
         </div>
       </div>
     )
   }
+}
+
+Form.propTypes = {
+  fields: PropTypes.shape({
+    name: PropTypes.string,
+    clicks: PropTypes.number,
+    imgUrl: PropTypes.string
+  }),
+  onSaveForm: PropTypes.func
 }
 
 export default Form;
